@@ -20,13 +20,16 @@
 			parent::__construct($parent);
 			$this->_driver = Symphony::Engine()->ExtensionManager->create('worldpay_payments');
 		}
-		
+
+
 		public function load()
 		{
 
 			# Run through the posted array 
 			foreach ($_POST as $key => $value)
 			{ 
+			print_r($key);
+
 				# If magic quotes is enabled strip slashes 
 				if (get_magic_quotes_gpc()) 
 				{ 
@@ -36,13 +39,20 @@
 				$value = urlencode($value); 
 				# Add the value to the request parameter 
 				$req .= "&$key=$value";
+
 			} 
-			
-			
+
+			# Print output to test post data is being received
+			print_r($req);
+
+			if (empty($_POST)) print_r('No post data');;
+
 			# Check that we have data and that it’s VERIFIED
 			if (! empty($_POST)) return $this->__trigger();
 			return NULL;
 		}
+
+
 
 		public static function documentation()
 		{
@@ -144,14 +154,9 @@
 					$output->appendChild(new XMLElement('message', 'No matching entry, could not reconcile payment data.'));
 				}
 				
-				# Save log, delete previous IPN logs with same invoice number
-				Symphony::Database()->query("
-					DELETE FROM
-						`tbl_worldpaypayments_logs`
-					WHERE
-						`txn_id` = '{$log['txn_id']}' AND
-						`payment_status` = '{$log['payment_status']}'
-				");
+
+print_r($log);
+
 				Symphony::Database()->insert($log, 'tbl_worldpaypayments_logs');
 			}  
 			return $output;

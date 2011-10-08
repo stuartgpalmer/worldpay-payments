@@ -38,6 +38,7 @@
 				CREATE TABLE IF NOT EXISTS `tbl_worldpaypayments_logs` (
 					`id` int(11) unsigned NOT NULL auto_increment,
 					`transTime` datetime NOT NULL,
+					`desc` varchar(255) NOT NULL,
 					`transStatus` varchar(255) NOT NULL,
 					`name` varchar(255) NOT NULL,
 					`email` varchar(255) NOT NULL,

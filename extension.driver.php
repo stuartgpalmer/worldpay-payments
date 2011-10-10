@@ -37,7 +37,7 @@
 		  Symphony::Database()->query("
 				CREATE TABLE IF NOT EXISTS `tbl_worldpaypayments_logs` (
 					`id` int(11) unsigned NOT NULL auto_increment,
-					`transTime` datetime NOT NULL,
+					`transTime` timespamp NOT NULL,
 					`desc` varchar(255) NOT NULL,
 					`transStatus` varchar(255) NOT NULL,
 					`name` varchar(255) NOT NULL,
@@ -47,6 +47,7 @@
 					`amount` decimal(10,2) NOT NULL,
 					`transId` varchar(255) NOT NULL,
 					`cartId` varchar(255) NOT NULL,
+					`ipAddress` varchar(255) NOT NULL,
 					PRIMARY KEY (`id`)
 				)
 			");

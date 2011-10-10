@@ -56,13 +56,15 @@
 			
 			$th = array(
 				array('Invoice/Entry', 'col'),
+				array('Name', 'col'),
+				array('Description', 'col'),
 				array('Date', 'col'),
 				array('Payment Status', 'col'),
-				array('Name', 'col'),
 				array('Email', 'col'),
 				array('Currency', 'col'),
 				array('Gross', 'col'),
 				array('Transaction ID', 'col'),
+				array('IP Address', 'col'),
 			);
 						
 			if ( ! is_array($logs) or empty($logs)) {
@@ -78,7 +80,7 @@
 					extract($log, EXTR_PREFIX_ALL, 'log');
 					
 					# Get the entry/section data
-					$entries = $entryManager->fetch($log_invoice, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE);
+					$entries = $entryManager->fetch($log_cartId, NULL, NULL, NULL, NULL, NULL, FALSE, TRUE);
 					$entry = $entries[0];
 					if (isset($entry))
 					{
@@ -95,16 +97,19 @@
 						$col[] = Widget::TableData( General::sanitize($log_cartId) );
 					}
 					$col[0]->appendChild(Widget::Input("items[{$log_id}]", NULL, 'checkbox'));
-					
+
+					if ( ! empty($log_name)) $col[] = Widget::TableData(General::sanitize($log_name));
+					else $col[] = Widget::TableData('None', 'inactive');
+
+					if ( ! empty($log_desc)) $col[] = Widget::TableData(General::sanitize($log_desc));
+					else $col[] = Widget::TableData('None', 'inactive');
+
 					if ( ! empty($log_transTime)) $col[] = Widget::TableData( DateTimeObj::get(__SYM_DATETIME_FORMAT__, strtotime($log_transTime)) );
 					else $col[] = Widget::TableData('None', 'inactive');
 					
 					if ( ! empty($log_transStatus)) $col[] = Widget::TableData(General::sanitize($log_transStatus));
 					else $col[] = Widget::TableData('None', 'inactive');
-					
-					if ( ! empty($log_name)) $col[] = Widget::TableData(General::sanitize($log_name));
-					else $col[] = Widget::TableData('None', 'inactive');
-					
+										
 					if ( ! empty($log_email)) $col[] = Widget::TableData(General::sanitize($log_email));
 					else $col[] = Widget::TableData('None', 'inactive');
 										
@@ -115,6 +120,9 @@
  					else $col[] = Widget::TableData('None', 'inactive');
 					
 					if ( ! empty($log_transId)) $col[] = Widget::TableData(General::sanitize($log_transId));
+ 					else $col[] = Widget::TableData('None', 'inactive');
+					
+					if ( ! empty($log_ipAddress)) $col[] = Widget::TableData(General::sanitize($log_ipAddress));
  					else $col[] = Widget::TableData('None', 'inactive');
 					
 					$tr = Widget::TableRow($col);

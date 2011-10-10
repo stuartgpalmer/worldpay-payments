@@ -77,6 +77,8 @@
 				'transId',
 				'transStatus',
 				'transTime',
+				'ipAddress',
+				'MC_paid_until',
 			);
 			
 			$required_variables = array(
@@ -90,6 +92,8 @@
 				'transId',
 				'transStatus',
 				'transTime',
+				'ipAddress',
+				'MC_paid_until',
 			);
 			
 			# Find any matches in the $_POST data

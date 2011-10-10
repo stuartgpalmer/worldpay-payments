@@ -62,7 +62,6 @@
 				array('Email', 'col'),
 				array('Currency', 'col'),
 				array('Gross', 'col'),
-				array('Fee', 'col'),
 				array('Transaction ID', 'col'),
 			);
 						
@@ -97,31 +96,25 @@
 					}
 					$col[0]->appendChild(Widget::Input("items[{$log_id}]", NULL, 'checkbox'));
 					
-					if ( ! empty($log_payment_date)) $col[] = Widget::TableData( DateTimeObj::get(__SYM_DATETIME_FORMAT__, strtotime($log_payment_date)) );
+					if ( ! empty($log_transTime)) $col[] = Widget::TableData( DateTimeObj::get(__SYM_DATETIME_FORMAT__, strtotime($log_transTime)) );
 					else $col[] = Widget::TableData('None', 'inactive');
 					
-					if ( ! empty($log_payment_type)) $col[] = Widget::TableData(General::sanitize(ucwords($log_transTime)));
+					if ( ! empty($log_transStatus)) $col[] = Widget::TableData(General::sanitize($log_transStatus));
 					else $col[] = Widget::TableData('None', 'inactive');
 					
-					if ( ! empty($log_payment_status)) $col[] = Widget::TableData(General::sanitize($log_transStatus));
+					if ( ! empty($log_name)) $col[] = Widget::TableData(General::sanitize($log_name));
 					else $col[] = Widget::TableData('None', 'inactive');
 					
-					if ( ! empty($log_payment_status)) $col[] = Widget::TableData(General::sanitize($log_name));
-					else $col[] = Widget::TableData('None', 'inactive');
-					
-					if ( ! empty($log_payer_email)) $col[] = Widget::TableData(General::sanitize($log_email));
+					if ( ! empty($log_email)) $col[] = Widget::TableData(General::sanitize($log_email));
 					else $col[] = Widget::TableData('None', 'inactive');
 										
-					if ( ! empty($log_mc_currency)) $col[] = Widget::TableData(General::sanitize($log_currency));
+					if ( ! empty($log_currency)) $col[] = Widget::TableData(General::sanitize($log_currency));
  					else $col[] = Widget::TableData('None', 'inactive');
 										
-					if ( ! empty($log_mc_gross)) $col[] = Widget::TableData(General::sanitize($log_amount));
+					if ( ! empty($log_amount)) $col[] = Widget::TableData(General::sanitize($log_amount));
  					else $col[] = Widget::TableData('None', 'inactive');
 					
-					if ( ! empty($log_mc_fee)) $col[] = Widget::TableData(General::sanitize($log_cost));
- 					else $col[] = Widget::TableData('None', 'inactive');
-										
-					if ( ! empty($log_txn_id)) $col[] = Widget::TableData(General::sanitize($log_transId));
+					if ( ! empty($log_transId)) $col[] = Widget::TableData(General::sanitize($log_transId));
  					else $col[] = Widget::TableData('None', 'inactive');
 					
 					$tr = Widget::TableRow($col);
